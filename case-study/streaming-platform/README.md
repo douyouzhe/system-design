@@ -6,7 +6,7 @@ Examples: Youtube, Amazon Prime Video, Netflix
 2. [Requirements](#requirements)
 3. [Design Basics](#design-basics)
 4. [Resources Estimation](#resources-estimation)
-4. [Components Deep Dive](#components-deep-dive)
+5. [Components Deep Dive](#components-deep-dive)
 
 
 ## Architecture Diagram
