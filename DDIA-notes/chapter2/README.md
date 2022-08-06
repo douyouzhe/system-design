@@ -7,3 +7,5 @@
 
 ## Mind Map
 ![mindmap](/DDIA-notes/chapter2/DDIA%20Chapter%202.jpg)
+
+Notes WIP.....
