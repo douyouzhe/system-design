@@ -44,7 +44,7 @@ Examples: Amazon, TaoBao and Walmart
 User service will be a normal RESTful API provides CRUD operation for Users. Read more in the streaming platform [example](https://github.com/douyouzhe/system-design/tree/main/case-study/streaming-platform#user-login-flow).
 
 ### Merchant APP Flow
-Merchants have their own APP and Services that provide different functionalities 
+Merchants have their own APP and Services that provide different functionalities such as creating a new shop or adding a new product. We have Shop Service and Product Service to handle the CRUD respectively. 
 
 
 ### User Search Flow
