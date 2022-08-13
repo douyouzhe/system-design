@@ -1,4 +1,4 @@
-# Kubernetes - k8s
+# Chapter 2 - Data Models and Query Language
 
 
 ## Table of Contents

@@ -1,4 +1,4 @@
-# Kubernetes - k8s
+# Chapter 1 - Reliable, Scalable, and Maintainable
 
 
 ## Table of Contents
