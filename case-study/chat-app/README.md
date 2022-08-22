@@ -59,7 +59,7 @@ When the users open the App, we want to log the timestamp as the *last-seen* tim
 
 -----------------------
 
-### User Chat Flow (WIP)
+### User Chat Flow
 
 Every time the user opens a chat, we establish a websocket connection for this user and the receiver and store the *[user_id, websocket_server/port]* pair using the WebSocket Manager. Using a k-v store will allow us to scale our App easily due to easy horizontal scaling. 
 
