@@ -1,6 +1,8 @@
 # Design an Chat-App
 Examples: Whatsapp, WeChat, FB messager
 
+Disclaimer: this is based on my knowledge only, I do not have information about how the above apps are built. 
+
 ## Table of Contents
 1. [Architecture Diagram](#architecture-diagram)
 2. [Requirements](#requirements)

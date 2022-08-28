@@ -6,7 +6,9 @@
 
 [Map Service](/case-study/map-service/)
 
-[Chat App](/case-study/chat-app)
+[Chat App](/case-study/chat-app/)
+
+[Ride Share App - WIP](/case-study/ride-share-app/)
 
 ## Tech Stacks
 [Kubernetes](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/kubernetes)
