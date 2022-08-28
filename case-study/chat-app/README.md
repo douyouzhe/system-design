@@ -43,7 +43,7 @@ Examples: Whatsapp, WeChat, FB messager
 
 * There are more than 65k ports in a modern server. We are not able to use all of them since some are registered, but we are still able to server a lot of connections on a single server. In order to know the server/port that the connection is on, we need a in-memory cache like Redis for fast look-up. 
 
-* One very strict uniqueness we want to maintain is the IDs. For a small single server App, the auto-increment feature for most databases should be good enough. For distributed databases, we cannot guaranteed the uniqueness unless we have a centralized place to manage all the IDs but this defeats the purpose of distributed system. One solution is we can assign a set of IDs to a server to make sure there is no overlap. 
+* One very strict uniqueness we want to maintain is the IDs. For a small single server App, the auto-increment feature for most databases should be good enough. For distributed databases, we cannot guaranteed the uniqueness unless we have a centralized place to manage all the IDs but this defeats the purpose of distributed system. One solution is we can assign a set of IDs to a server to make sure there is no overlap. The is a better solution and we are able to get both uniqueness and time-based ordering via [Snowflake ID](https://en.wikipedia.org/wiki/Snowflake_ID). Snowflake IDs are 64 bits in binary. (Only 63 are used to fit in a signed integer.) The first 41 bits are a timestamp, representing milliseconds since the chosen epoch. The next 10 bits represent a machine ID, preventing clashes. Twelve more bits represent a per-machine sequence number, to allow creation of multiple snowflakes in the same millisecond. The final number is generally serialized in decimal. Sorting by time is very useful because message ordering is always good for a chat App. 
  
 -----------------------
 
@@ -59,7 +59,7 @@ When the users open the App, we want to log the timestamp as the *last-seen* tim
 
 -----------------------
 
-### User Chat Flow (WIP)
+### User Chat Flow
 
 Every time the user opens a chat, we establish a websocket connection for this user and the receiver and store the *[user_id, websocket_server/port]* pair using the WebSocket Manager. Using a k-v store will allow us to scale our App easily due to easy horizontal scaling. 
 
@@ -67,7 +67,7 @@ Every time the user opens a chat, we establish a websocket connection for this u
 <img src="/case-study/chat-app/websocket.jpg" width="400">
 </p>
 
-When the users send a message, the message is stored via Message Service. A message object should contain message_id, sender_id, receiver_id, encrypted content, status and some timestamps. The object is fed into Kafka for further processing. We first get the receiver's websocket information from the the WebSocket Manager then send the message to the receiver's client. The **status** field can be used for several use cases:
+When the users send a message, the message is stored via Message Service (If you want to design a snapchat like chat App, you can set a TTL to the message when saving). A message object should contain message_id, sender_id, receiver_id, encrypted content, status and some timestamps. The object is fed into Kafka for further processing. We first get the receiver's websocket information from the the WebSocket Manager then send the message to the receiver's client. The **status** field can be used for several use cases:
 * When it's delivered, we can change the status to *delivered* so the sender will be updated. 
 * When it's read,  we can change the status to *read*.
 * We can add additional features like archive or update the message so the **status** can be used accordingly. 
@@ -76,11 +76,12 @@ When the users send a message, the message is stored via Message Service. A mess
 <img src="/case-study/chat-app/messageobj.jpg" width="400">
 </p>
 
-The Group Message Object looks similar except for the receiver_id is replaced by a channel_id since we are sending this message to all the members in the group. We can get the list of receivers from Group Chat Service we talked about in the user App flow. 
+The Group Message Object looks similar except for the receiver_id is replaced by a channel_id since we are sending this message to all the members in the group. We can get the list of receivers from Group Chat Service we talked about in the user App flow. Then we can repeat the process in 1-1 chat, it can be a parallel process for better performance. It is possible each group member will get the message at a slightly different time due to processing. It is acceptable if we can reduce the lag by limiting the number of users in a group (for example it's 500 in WeChat).
 
-One very strict uniqueness we want to maintain is the ids
+For media content like images, audio and videos, we will treat them as messages as well, but the actual content will be store a file system. Similar to any other media content, we will use a metadata DB, a data dump file system and a CDN triplets. The details are covered in the [the streaming platform design case](https://github.com/douyouzhe/system-design/tree/main/case-study/streaming-platform#user-upload-flow).
 
 
+What if the user is not online so that there is no websocket information stored. In that case we can use the push notification service like Apple Push Notification and Android Notifiers. Push Notification itself can be another system design topic we will cover it in the future. We can set the status for these undelivered message to *pending* and deliver them all when the user is back online or click into the notification.
 
 
 -----------------------
@@ -92,10 +93,7 @@ https://codeburst.io/polling-vs-sse-vs-websocket-how-to-choose-the-right-one-185
 
 https://www.smashingmagazine.com/2017/04/guide-http2-server-push/
 
+https://en.wikipedia.org/wiki/Snowflake_ID
 
-
-
-
-
-
+https://developer.apple.com/notifications/
 
