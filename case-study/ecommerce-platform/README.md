@@ -1,6 +1,8 @@
 # Design an e-commerce platform
 Examples: Amazon, TaoBao and Walmart
 
+Disclaimer: this is based on my knowledge only, I do not have information about how the above apps are built. 
+
 ## Table of Contents
 1. [Architecture Diagram](#architecture-diagram)
 2. [Requirements](#requirements)
