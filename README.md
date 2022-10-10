@@ -13,6 +13,12 @@
 ## Tech Stacks
 [Kubernetes](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/kubernetes)
 
+[Load Balancing](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/load-balancing)
+
+[Caching](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/caching)
+
+[Sharding](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/sharding)
+
 ## DDIA Notes
 [Chapter 1](https://github.com/douyouzhe/system-design/tree/main/DDIA-notes/chapter1) - Reliable, Scalable and Maintainable
 
