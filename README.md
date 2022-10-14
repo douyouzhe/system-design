@@ -8,7 +8,9 @@
 
 [Chat App](/case-study/chat-app/)
 
-[Ride Share App - WIP](/case-study/ride-share-app/)
+[Ride Share App](/case-study/ride-share-app/)
+
+[Tiny URL](/case-study/tiny-url/)
 
 ## Tech Stacks
 [Kubernetes](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/kubernetes)
@@ -18,6 +20,10 @@
 [Caching](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/caching)
 
 [Sharding](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/sharding)
+
+[Queue](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/queue)
+
+[NoSQL](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/nosql)
 
 ## DDIA Notes
 [Chapter 1](https://github.com/douyouzhe/system-design/tree/main/DDIA-notes/chapter1) - Reliable, Scalable and Maintainable
