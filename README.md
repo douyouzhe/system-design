@@ -43,3 +43,7 @@
 [Chapter 8](https://github.com/douyouzhe/system-design/tree/main/DDIA-notes/chapter8) - Distributed System
 
 [Chapter 9](https://github.com/douyouzhe/system-design/tree/main/DDIA-notes/chapter9) - Consistency and Consensus
+
+[Chapter 10](https://github.com/douyouzhe/system-design/tree/main/DDIA-notes/chapter10) - Batching Processing
+
+[Chapter 11](https://github.com/douyouzhe/system-design/tree/main/DDIA-notes/chapter11) - Streaming Processing
