@@ -12,6 +12,8 @@
 
 [Tiny URL](/case-study/tiny-url/)
 
+[Hotel Booking App](/case-study/hotel-booking/)
+
 ## Tech Stacks
 [Kubernetes](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/kubernetes)
 

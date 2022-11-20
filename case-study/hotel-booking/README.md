@@ -6,8 +6,7 @@ Disclaimer: This is based on my knowledge only, I do not have information about 
 ## Table of Contents
 1. [Architecture Diagram](#architecture-diagram)
 2. [Requirements](#requirements)
-3. [Design Basics](#design-basics)
-4. [Components Deep Dive](#components-deep-dive)
+3. [Components Deep Dive](#components-deep-dive)
 -----------------------
 
 ## Architecture Diagram
@@ -21,6 +20,7 @@ Disclaimer: This is based on my knowledge only, I do not have information about 
     * Hotels CRUD
     * Rooms CRUD
     * Bookings management
+    * Business Insights
 * Users:
     * Search for hotels/rooms
     * Make reservations
@@ -32,11 +32,6 @@ Disclaimer: This is based on my knowledge only, I do not have information about 
 * high availability
 * scalable
 
------------------------
-
-## Design Basics
-
-*  
 
 -----------------------
 
@@ -77,9 +72,13 @@ Disclaimer: This is based on my knowledge only, I do not have information about 
 * The last step of the Booking Service will be sending a message to the Search engine and removing this room from the search results if it is fully booked. 
 
 ### Analytics and Reporting Service
-* We 
+* When we have the supply and demand(from search trending and history information) data, we will be able to optimize the price for the hotel business. Therefore we feed all the search actions and order transactions to an Analytic Service which is a streaming service. 
+* We can also provide business insights and reports to hotel managers which can be used to drive their growth or for accounting purposes. 
 
 -----------------------
 ## Reference
 
 https://sematext.com/blog/solr-vs-elasticsearch-differences/
+
+https://www.nexsoftsys.com/articles/how-to-design-backend-system-of-an-online-hotel-booking-app-using-java.html
+
