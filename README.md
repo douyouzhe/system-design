@@ -27,6 +27,8 @@
 
 [NoSQL](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/nosql)
 
+[Kafka](https://github.com/douyouzhe/system-design/tree/main/tech-stacks/kafka)
+
 ## DDIA Notes
 [Chapter 1](https://github.com/douyouzhe/system-design/tree/main/DDIA-notes/chapter1) - Reliable, Scalable and Maintainable
 
