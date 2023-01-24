@@ -63,7 +63,7 @@ User service will be a normal RESTful API provides CRUD operation for Users.
 
 As one of the most fundamental and import domain of any system, we would like to have ACID property and this leads to the choice of a SQL database. 
 
-Along with it, we add a Redis cache for better performance. The choice of caching patterns will be Cache-Aside (if SLA is not strictly required). Lazy loading is preferred in this case since the number of users is huge and active Write-Through can be expensive. You can refer to this link for the choice of [caching patterns](https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/caching-patterns.html).
+Along with it, we add a Redis cache for better performance. The choice of caching patterns will be Cache-Aside (if SLA is not strictly required). Lazy loading is preferred in this case since the number of users is huge and active Write-Through can be expensive. You can refer to this link for the choice of [caching patterns](https://docs.aws.amazon.com/whitepapers/latest/database-caching-strategies-using-redis/caching-patterns.html) and [6 common caching design](https://www.gomomento.com/blog/6-common-caching-design-patterns-to-execute-your-caching-strategy).
 
 -----------------------
 
