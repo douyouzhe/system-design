@@ -89,6 +89,8 @@ What if the user is not online so that there is no websocket information stored.
 -----------------------
 ## Reference
 
+https://towardsdatascience.com/ace-the-system-interview-design-a-chat-application-3f34fd5b85d0
+
 https://dev.to/kevburnsjr/websockets-vs-long-polling-3a0o
 
 https://codeburst.io/polling-vs-sse-vs-websocket-how-to-choose-the-right-one-1859e4e13bd9
