@@ -1,4 +1,4 @@
-# Design an Chat-App
+# Design a Ride-share APP
 Examples: Uber, Lyft and DiDi
 
 Disclaimer: this is based on my knowledge only, I do not have information about how the above apps are built. 
@@ -30,11 +30,11 @@ Disclaimer: this is based on my knowledge only, I do not have information about 
 
 ## Design Basics
 
-* Obviously, a ride-share App needs to rely on a lot of functionalities of a map service. We have covered the details of how to design a [map service](https://github.com/douyouzhe/system-design/tree/main/case-study/map-service) so I highly recommend to go over it first. We should keep in mind when designing any system that we do not need to build everything from scratch on our own and it might make more sense to partner with external service provider if we have limited resources. For example, Uber is bouncing between Google Map API and MapBox and Lyft is using OpenStreetMap. 
+* Obviously, a ride-share App needs to rely on a lot of functionalities of a map service. We have covered the details of how to design a [map service](https://github.com/douyouzhe/system-design/tree/main/case-study/map-service) so I highly recommend going over it first. We should keep in mind when designing any system that we do not need to build everything from scratch on our own and it might make more sense to partner with external service providers if we have limited resources. For example, Uber is bouncing between Google Map API and MapBox and Lyft is using OpenStreetMap. 
 
 * Matching riders and drivers is a core component to make any ride-share App successful.
-    * The naive solution is we can match a rider to the closest driver based on physical proximity. Riders and drivers value short pick-up times, but this doesn’t mean that the closest match will meet this need. For example, whenever there is heavy traffic, one-way streets, or road detours due to construction, drivers can spend a longer time reaching the closest rider. Thus, the closest doesn’t mean the quickest.
-    * We can match a rider to the closest driver based on shortest pick-up time. It is easy to think about it if we only have one rider at a time and a simple greedy solution will work for us. However, if the goal is make the average pick-up time shorter for all the riders. For example, in the below scenario, we would match Driver A to Rider B since they are only 6 mins apart. Then we can only match Driver B to Rider A and on average it takes (6+50)/2 = 28 mins to match both riders. However, if we look at this scenario from a global perspective we can see it's better to match Driver A to Rider A and Driver B to Rider B because on average it takes (16+18)/2 = 17 mins to match both riders. 
+    * The naive solution is we can match a rider to the closest driver based on physical proximity. Riders and drivers value short pick-up times, but this doesn’t mean that the closest match will meet this need. For example, whenever there is heavy traffic, one-way streets, or road detours due to construction, drivers can spend a long time reaching the closest rider. Thus, the closest doesn’t mean the quickest.
+    * We can match a rider to the closest driver based on the shortest pick-up time. It is easy to think about it if we only have one rider at a time and a simple greedy solution will work for us. However, if the goal is to make the average pick-up time shorter for all the riders. For example, in the below scenario, we would match Driver A to Rider B since they are only 6 mins apart. Then we can only match Driver B to Rider A and on average it takes (6+50)/2 = 28 mins to match both riders. However, if we look at this scenario from a global perspective we can see it's better to match Driver A to Rider A and Driver B to Rider B because on average it takes (16+18)/2 = 17 mins to match both riders. 
 
     <p align="center">
     <img src="/case-study/ride-share-app/pickuptime.jpg" width="500">
@@ -104,13 +104,3 @@ https://www.uber.com/us/en/marketplace/matching/
 https://www.youtube.com/watch?v=GyPq2joHZv4
 
 https://youtu.be/AzptiVdUJXg
-
-
-
-
-
-
-
-
-
-
