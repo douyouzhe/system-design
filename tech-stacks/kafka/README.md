@@ -1,11 +1,11 @@
 # Kafka
 * Official definition: Kafka is an open-source **distributed** event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
-* Kafka adopts **Pub/Sub** model where the publishers publish messages of certain categories (topics) and the subscribers can consume according to their interests. 
-* Kafka is **much more** than a Message Queue (MQ), compared to ActiveMQ and RabbitMQ....
+* Kafka adopts the **Pub/Sub** model where the publishers publish messages of certain categories (topics) and the subscribers can consume according to their interests. 
+* Kafka is **much more** than a Message Queue (MQ), compared to ActiveMQ and RabbitMQ...
 
 ## Major use cases:
 * peak traffic buffering/handling: the traffic varies a lot during peak hours - lunchtime for DoorDash and PrimeDay for Amazon.
-* services decoupling: Kafka publishers and subscribers are already decoupled in the sense that they do not communicate with one another directly. It is very useful when you have multiple data sources and streams. *Kakfa Mirror is a special technique used widely to move data from between different datalakes or datazones*
+* services decoupling: Kafka publishers and subscribers are already decoupled in the sense that they do not communicate with one another directly. It is very useful when you have multiple data sources and streams. *Kakfa Mirror is a special technique used widely to move data from between different databases or data zones*
 * asynchronous communications: make non-essential steps async for better user experience. 
 
 ## Pub/Sub Model
@@ -21,16 +21,16 @@
     <img src="/tech-stacks/kafka/producer.jpg" width="850">
     </p>
 
-* The Producer object calls `.send()` method to send the ProducerRecords which is just a wrapper around the messages.
-* The serializer turns the messages into streams of bytes. Serializer can be customized and if you are working with binary like Protobuf or Avro, you can use Schema Registry.
+* The Producer object calls the `.send()` method to send the ProducerRecords which is just a wrapper around the messages.
+* The serializer turns the messages into streams of bytes. The serializer can be customized and if you are working with binary like Protobuf or Avro, you can use Schema Registry.
 * Partitioner decides where (which partition) the message should be sent to. Partitioning takes the single topic log and breaks it into multiple logs, each of which can live on a separate node in the Kafka cluster. This way, the work of storing messages, writing new messages, and processing existing messages can be split among many nodes in the cluster.
 * After that, messages are split into different queues in RecordAccumulator and waiting to be sent over. Note that these queues are all in memory still. We can return the metadata as a successful response back to the Producer if you use `.send(ProducerRecords, Callback)` with a callback method. 
 * When do we invoke the Sender to send the messages? This is controlled by two configuration parameters: `BATCH_SIZE_CONFIG` (when the accumulator queue exceeds the batch size) and `LINGER_MS_CONFIG` (when the longest wait time has been reached). 
 * The Sender will create a network client to send the messages to Kafka Cluster and wait for an `acks` signal. 
 
 ### Consumer
-* Kafka adopts **Pull** model where consumers pull data from the topic. This makes the system more decoupled and flexible compared to the Push model which requires the consumer to keep up with the speed of the ingestion.
-* More than one individual consumer can pull data from the same topic, but more than one consumer from the same consumer group **cannot** pull data from the same topic since all consumers in a group are treated as a single consumer/subscriber. 
+* Kafka adopts the **Pull** model where consumers pull data from the topic. This makes the system more decoupled and flexible compared to the Push model which requires the consumer to keep up with the speed of the ingestion.
+* More than one individual consumer can pull data from the same topic, but more than one consumer from the same consumer group **cannot** pull data from the same topic since all consumers in a group are treated as single consumer/subscriber. 
 
 ## Partitions & Replicas
 
@@ -44,7 +44,7 @@
 
 * To make any system reliable and resilient, we use replications to make sure we do not have any single-point failures. Note that Kafka uses the Leader&Follower mechanism. We will cover more in the System Reliability section.
 
-* Every partition has its corresponding append-only log that stores all messages from the Producer. Append-only logs will get big sometimes so they are further divided into Segments (1G). Kafka puts an index record in the `xxxxx.index` file for every 4kb of data for fast retrieval. To prevent logs getting large infinitely, we can set the retention time using `log.retention.hours/minutes/ms` (the default is 7 days). After the retention time, the data will be either deleted or compacted(only keep the latest value of the same key) depends on `log.cleanup.policy`. 
+* Every partition has its corresponding append-only log that stores all messages from the Producer. Append-only logs will get big sometimes so they are further divided into Segments (1G). Kafka puts an index record in the `xxxxx.index` file for every 4kb of data for fast retrieval. To prevent logs from getting large infinitely, we can set the retention time using `log.retention.hours/minutes/ms` (the default is 7 days). After the retention time, the data will be either deleted or compacted(only keep the latest value of the same key) depending on `log.cleanup.policy`. 
 
 
 ## System Reliability
