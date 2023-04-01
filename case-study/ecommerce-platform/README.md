@@ -32,28 +32,26 @@ Disclaimer: this is based on my knowledge only, I do not have information about 
 
 ## Design Basics
 * Parties
-    * Merchant: Client that sells products on the platform. They have will have a client app to CRUD shops and catalogs.
+    * Merchant: Client that sells products on the platform. They have will have a client app for CRUD shops and catalogs.
     * User: Buyer can use the app to make purchases.
     * Admin: Internal administrators can access internal data and APIs.
     * *These 3 parties can be abstracted into one class and use a userType field to distinguish* 
 * Transactions that involve money movement require ACID property so SQL database should be adopted for most cases.
-* Instead of building everything from scratch, a lot of external third-party services can be integrated. For example, Shippo is a company that help merchants to manage shipping and inventory. Payment companies like PayPal and Stripe provide payment SDKs. 
-* Making processing orders a synchronous system is only feasible for small scale systems when there is a limited number of users. Mostly likely we will have a asynchronous system for better user experience. This is especially important during **peak hours** like prime days for Amazon and 11/11 for TaoBao. 
-* Should we deduct from inventory at the moment when adding to cart or when complete the purchase? We will need an algorithm to avoid overselling while maximizing sales. We will cover this in the deep dive section. 
-* Ideally we want to store Products/Catalogs using SQL database due to the ACID requirement. However, the SQL scheme in this case is actually a huge burden because of the variety of Products. For example, food, clothing and electronics will not share the same set of fields so we will end up with lots of *null* fields if we want to maintain the fixed schema. Therefore, using a NoSQL database makes more sense. 
------------------------
-
+* Instead of building everything from scratch, a lot of external third-party services can be integrated. For example, Shippo is a company that helps merchants to manage shipping and inventory. Payment companies like PayPal and Stripe provide payment SDKs. 
+* Making processing orders a synchronous system is only feasible for small-scale systems when there is a limited number of users. Most likely we will have an asynchronous system for a better user experience. This is especially important during **peak hours** like prime days for Amazon and 11/11 for TaoBao. 
+* Should we deduct from inventory at the moment when adding to the cart or when completing the purchase? We will need an algorithm to avoid overselling while maximizing sales. We will cover this in the deep dive section. 
+* Ideally we want to store Products/Catalogs using SQL database due to the ACID requirement. However, the SQL scheme in this case is actually a huge burden because of the variety of Products. For example, food, clothing, and electronics will not share the same set of fields so we will end up with lots of *null* fields if we want to maintain the fixed schema. Therefore, using a NoSQL database makes more sense.
 
 ## Components Deep Dive
 
 ### User Login Flow
 
-User service will be a normal RESTful API provides CRUD operation for Users. Read more in the streaming platform [example](https://github.com/douyouzhe/system-design/tree/main/case-study/streaming-platform#user-login-flow).
+User service will be a normal RESTful API that provides CRUD operation for Users. Read more in the streaming platform [example](https://github.com/douyouzhe/system-design/tree/main/case-study/streaming-platform#user-login-flow).
 
 -----------------------
 
 ### Merchant APP Flow
-Merchants have their own APP and Services that provide different functionalities such as creating a new shop or adding a new product. We have Shop Service and Product Service to handle the CRUD respectively. The Shop Service is very straight forward, we gather some information from the merchant using a form then create/update based on it. Note that the shop is not immediately available after creation, there will be a review process to check the eligibility based on several factors like the merchant's background, the legal status of the shop_category and etc. We make use of a field called shop_status(ENUM) to track the lifecycle of a store. This is also used to soft-delete a shop, as we all know, an internet company will NEVER truly erase any data. ;) 
+Merchants have their own APPs and Services that provide different functionalities such as creating a new shop or adding a new product. We have Shop Service and Product Service to handle the CRUD respectively. The Shop Service is very straightforward, we gather some information from the merchant using a form and then create/update based on it. Note that the shop is not immediately available after creation, there will be a review process to check the eligibility based on several factors like the merchant's background, the legal status of the shop_category and etc. We make use of a field called shop_status(ENUM) to track the lifecycle of a store. This is also used to soft-delete a shop, as we all know, an internet company will NEVER truly erase any data. ;) 
 
 <p align="center">
 <img src="/case-study/ecommerce-platform/store-class.jpg" width="400">
