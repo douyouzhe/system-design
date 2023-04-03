@@ -17,14 +17,14 @@
 
 # Relational Model vs Document Model
 
-relational database is dominant for **transaction processing** and **batch processing** in the early days. There were a lot of competition but they never lasted. 
+the relational database is dominant for **transaction processing** and **batch processing** in the early days. There was a lot of competition but they never lasted. 
 
 ## The Birth of NoSQL
 
 > Not Only SQL
 > 
 - the need for greater **scalability**, very **large dataset** and **high throughput**
-- the need for free and open source software
+- the need for free and open-source software
 - the need for removing **restrictiveness** of relation **schemas**
 - the need for specialized query operations
 
@@ -33,7 +33,7 @@ relational database is dominant for **transaction processing** and **batch proce
 - there is an awkward translation layer between OOP and SQL database model which is called **impedance mismatch**. ORM frameworks are helpful but not perfect.
 - one-to-many
     - normalization to separate tables and join using FK, not **self-contained, less locality**
-    - encode multi-value data into JSON/XML and store within a single row. Some DB support internal indexing if the data is structured.
+    - encode multi-value data into JSON/XML and store it within a single row. Some DB support internal indexing if the data is structured.
 
 ## Many-to-One and Many-to-Many
 
@@ -44,10 +44,10 @@ relational database is dominant for **transaction processing** and **batch proce
     - localization and translation support
     - better search - if we know the relationship
     - duplicating human meaningful information
-- many-to-one and many-to-many do **NOT** fit well in document model since join is weakly supported - this need to be performed in the application layer
-- even these relation might not be needed when first designing a DB, data has a tendency of becoming more and more **interconnected** as features are added into the application.
-- to support many-to-many, the network model: unlike hierarchy model, each node can have **multiple parent**. the link is not FK, it’s pointers.  dev needs to track the access path
-- query optimizer in hierarchy model automatically decide how to execute a query, so any changes in the DB is easy, dev does NOT need to track the access path
+- many-to-one and many-to-many do **NOT** fit well in the document model since join is weakly supported - this need to be performed in the application layer
+- even though these relations might not be needed when first designing a DB, data has a tendency of becoming more and more **interconnected** as features are added to the application.
+- to support many-to-many, the network model: unlike the hierarchy model, each node can have **multiple parent**. the link is not FK, it’s pointers.  dev needs to track the access path
+- query optimizer in the hierarchy model automatically decide how to execute a query, so any changes in the DB are easy, dev does NOT need to track the access path
 
 ## Relational vs Document DB Today
 
@@ -58,26 +58,26 @@ relational database is dominant for **transaction processing** and **batch proce
         - schema-on-write : **static**
             - schema migration & backward/forward compatibility
     - better **performance** due to locality
-        - fast read since less queries
+        - fast read since fewer queries
         - need to update the entire document
         - some SQL support locality - materialized view01
-    - closeness to data structure in the application - JS and JSON
-    - support joins, many-to-one and many-to-many relationship - you can do it in application code but it will be slower compared to specialized code in DB
+    - closeness to a data structure in the application - JS and JSON
+    - support joins, many-to-one, and many-to-many relationships - you can do it in application code but it will be slower compared to specialized code in DB
     - refer to nested items in documents
-- **convergence** of document and relational DB
+- **convergence** of the document and relational DB
     - XML JSON support in SQL - Oracle blob
     - some MongoDB driver support join
 - we can use a **hybrid** of relational and document DB if needed
 
 # Query Language for Data
 
-- SQL is a **declarative** language, compared to **imperative.** you just need to specify the pattern, not how to achieve that. query optimizer will handle that part. it hides the complexity of the database engine, even parallel execution.
-- MapReduce is neither a declarative nor imperative language, but somewhere in between: the logic of the query is expressed with snippets of code ( mapper and reducer) which is called repeatedly by the processing framework. it is a fairly low-level programming model for distributed execution on a cluster of machines. High-level query language can be implemented as a pipeline if MapReduce operations.
+- SQL is a **declarative** language, compared to **imperative.** you just need to specify the pattern, not how to achieve that. the query optimizer will handle that part. it hides the complexity of the database engine, even parallel execution.
+- MapReduce is neither a declarative nor imperative language, but somewhere in between the logic of the query is expressed with snippets of code ( mapper and reducer) which are called repeatedly by the processing framework. it is a fairly low-level programming model for distributed execution on a cluster of machines. High-level query language can be implemented as a pipeline of MapReduce operations.
 
 # Graph-Like Data Models
 
 - if many-to-may relationships are very common
-- store completely different types of object - non homogenous
+- store completely different types of objects - non-homogenous
     
     ![Untitled](/DDIA-notes/chapter2/graphdb.png)
     
@@ -94,13 +94,13 @@ relational database is dominant for **transaction processing** and **batch proce
     - ID
     - set of outgoing edges
     - set of incoming edges
-    - collection of properties (k-v pairs)
-- Edges contains:
+    - a collection of properties (k-v pairs)
+- Edges contain:
     - ID
     - starting node
     - ending node
     - relation label
-    - collection of properties (k-v pairs)
+    - a collection of properties (k-v pairs)
     
     ```sql
     CREATE TABLE vertices (
@@ -130,12 +130,12 @@ relational database is dominant for **transaction processing** and **batch proce
     RETURN person.name
     ```
     
-- There will always be more than one way to traverse a graph and get your query result. As a declarative QL, you do not need to specify the **execution details**. Query optimizer will choose the most **efficient** strategy.
+- There will always be more than one way to traverse a graph and get your query result. As a declarative QL, you do not need to specify the **execution details**. The query optimizer will choose the most **efficient** strategy.
 
 ## Graph QL in SQL
 
-- put Graph in a relational DB is feasible, but with one challenge, **the number of join is not fixed** in advance since we might need to traverse a variable number of edges to get the data.
-- Some SQL support recursive expression, but it’s complex and too verbose
+- Putting Graph in a relational DB is feasible, but with one challenge, **the number of joins is not fixed** in advance since we might need to traverse a variable number of edges to get the data.
+- Some SQL supports recursive expression, but it’s complex and too verbose
 
 ## Triple-Stores and SPARQL
 
