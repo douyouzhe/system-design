@@ -39,3 +39,11 @@ How do we make sure data ends up on all the replicas? active/passive or master/s
     - election: the best candidate for leadership is usually the follower with the most up-to-date data.
     - re-config the system using the new leader, even if the old leader comes back (split brain). 
     - in an asynchronous replication system, it's possible the new leader might have incomplete/conflicting data and we can only discard them - think carefully because this will violate data durability. 
+
+
+### Implementation of Replication Logs
+- Statement-based replication: the leader logs every write request (INSERT, UPDATE, DELETE) and sends it to its followers. It can break if the request is **nondeterministic(RAND())** or if there are concurrent transactions where the order is different. The solution is the leader can replace any nondeterministic value with a fixed return value and pass it down.
+- Write Ahead Log (WAL): it is an append-only sequence of *bytes* containing all writes to the database. WAL describes the data on a very **low level** - which bytes were changed in which disk blocks.
+ - Logic(row-based) log replication: 
+
+ 
